@@ -1,0 +1,24 @@
+{
+  "name": "array-sort-by",
+  "version": "1.0.0",
+  "description": "Sort an array and allows multiple sort criteria",
+  "author": "David Rivera <jherax@gmail.com>",
+  "main": "sort-by.js",
+  "keywords": [
+    "javascript",
+    "array",
+    "sort",
+    "order",
+    "arrange"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jherax/array-sort-by.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jherax/array-sort-by/issues"
+  },
+  "scripts": {},
+  "license": "ISC",
+  "homepage": "https://github.com/jherax/array-sort-by#readme"
+}
