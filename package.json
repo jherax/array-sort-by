@@ -5,11 +5,11 @@
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
   "keywords": [
-    "javascript",
     "array",
     "sort",
     "order",
-    "arrange"
+    "arrange",
+    "javascript"
   ],
   "repository": {
     "url": "git+https://github.com/jherax/array-sort-by.git",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/jherax/array-sort-by#readme",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --bail && webpack --config webpack.uglify.config.js",
     "eslint": "eslint src || true"
   },
   "license": "ISC",
@@ -34,7 +34,8 @@
     "eslint": "^3.10.0",
     "eslint-config-google": "^0.7.0",
     "eslint-loader": "^1.6.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-validator": "^2.2.9"
   },
   "babel": {
     "presets": [
