@@ -1,6 +1,8 @@
 # Array sort-by
 
-The motivation to create this function was to provide a mechanism that allow sort lists of elements, 
+<!-- markdownlint-disable MD033 MD034 MD014 -->
+
+The motivation to create this function was to provide a mechanism that allow sort lists of elements,
 with the possibility to specify multiple sort criteria.
 
 ## Getting started
@@ -26,7 +28,7 @@ The library has been written as an **ES2015 Module** and the exported module has
 function sortBy(array, /*optional*/ parser);
 ```
 
-The optional parameter `parser` is a function that transforms each element being iterated and sets the sort rules: 
+The optional parameter `parser` is a function that transforms each element being iterated and sets the sort rules:
 ascending, descending, and multiple fields for sorting. It has the following signature:
 
 ```javascript
@@ -45,9 +47,9 @@ function parser(item, index);
 ```html
 <!-- last version: 1.0.1 -->
 <script src="https://cdn.rawgit.com/jherax/array-sort-by/1.0.1/dist/sort-by.min.js"></script>
-``` 
+```
 
-As this library is built as an [UMD](http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) 
+As this library is built as an [UMD](http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)
 (Universal Module Definition), it can be included from a module loader as AMD, CommonJS, or ES2015 Export.
 
 ### CommonJS
@@ -113,7 +115,8 @@ sortBy(arr, (s) => -new Date(s));
  */
 ```
 
-### Sorting DESC strings.
+### Sorting DESC strings
+
 Because we use the minus **(-)** symbol to specify a descending order, it will produce a `NaN` value when is used with a `String` element. That's why the flag **`"desc:"`** is prefixed to the string items in the `parser` callback.
 
 ```javascript
@@ -130,9 +133,9 @@ sortBy(arr, (s) => "desc:" + s);
 
 ```javascript
 let arr = [
-  { n: 8, d: "1985/08/31" }, 
-  { n: 2, d: "1980/12/24" }, 
-  { n: 5, d: "1983/03/06" }, 
+  { n: 8, d: "1985/08/31" },
+  { n: 2, d: "1980/12/24" },
+  { n: 5, d: "1983/03/06" },
   { n: 8, d: "1983/03/06" }
 ];
 
@@ -187,9 +190,9 @@ sortBy(arr, (o) => [o.name.toUpperCase(), -o.age, o.id]);
 /*
  * expected:
  * [
- *   { id: 2, name: "luis",  age: 26 }, 
- *   { id: 7, name: "Luis",  age: 26 }, 
- *   { id: 6, name: "Pedro", age: 32 }, 
+ *   { id: 2, name: "luis",  age: 26 },
+ *   { id: 7, name: "Luis",  age: 26 },
+ *   { id: 6, name: "Pedro", age: 32 },
  *   { id: 4, name: "pedro", age: 26 }
  * ]
  */
@@ -202,10 +205,11 @@ If you want to fork or build your own, you must run this project.
 ### Requirements
 
 1. Git ([git-linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) or [git-windows](https://git-for-windows.github.io/)).
-2. [Node.js](https://nodejs.org/en/) (latest stable version v6+).
-3. Node Package Manager ([npm](https://docs.npmjs.com/) v3+), the one that comes with your **node.js** version.<br/>
-   It is preferable to install Node Version Manager - **[nvm](https://github.com/creationix/nvm)**, it contains both **node.js** and **npm**.
-4. [Yarn](https://yarnpkg.com/en/docs/cli/) installed as a global package.
+1. [Node.js](https://nodejs.org/en/) (latest stable version v6+).
+1. Node Package Manager ([npm](https://docs.npmjs.com/) v3+), the one that comes with your **node.js** version.<br>
+   It is preferable to install Node Version Manager - **[nvm](https://github.com/creationix/nvm)**, it contains both
+   **node.js** and **npm**.
+1. [Yarn](https://yarnpkg.com/en/docs/cli/) installed as a global package.
 
 **NOTE**: Consider to install Node Version Manager (**NVM**) to upgrade easily the Node.js version.<br>
 Go to https://github.com/creationix/nvm and check the installation process for your OS.
@@ -236,23 +240,23 @@ And finally execute the webpack task:
 $ yarn run build
 ```
 
-This command will lint the code with [ESLint](http://eslint.org/docs/user-guide/getting-started) and after that 
-it will transpile with [Babel](https://babeljs.io/) the ES2015 Module in `src/` folder to an UMD ES5 Module in `dist/` 
+This command will lint the code with [ESLint](http://eslint.org/docs/user-guide/getting-started) and after that
+it will transpile with [Babel](https://babeljs.io/) the ES2015 Module in `src/` folder to an UMD ES5 Module in `dist/`
 and finally it will generate the minified and source map files.
 
 ## Versioning
 
 This projects adopts the [Semantic Versioning](http://semver.org/) (SemVer) guidelines:
 
-```
+```text
 <MAJOR>.<MINOR>.<PATCH>
 ```
 
 Given a version number MAJOR.MINOR.PATCH, increment the:
 
 1. MAJOR version when you make incompatible API changes
-2. MINOR version when you add functionality in a backwards-compatible manner
-3. PATCH version when you make backwards-compatible bug fixes.
+1. MINOR version when you add functionality in a backwards-compatible manner
+1. PATCH version when you make backwards-compatible bug fixes.
 
 ## Issues
 
@@ -262,6 +266,6 @@ To report an issue and keep traceability of bug-fixes, please report to:
 
 ## License
 
-This project has been released under the [ISC](https://opensource.org/licenses/ISC) license. 
-This license applies ONLY to the source of this repository and does not extend to any other distribution, 
+This project has been released under the [ISC](https://opensource.org/licenses/ISC) license.
+This license applies ONLY to the source of this repository and does not extend to any other distribution,
 or any other 3rd party libraries used in a repository. See [LICENSE](LICENSE) file for more information.
