@@ -1,8 +1,9 @@
+/*! sortBy@v1.0.2. Jherax 2017. Visit https://github.com/jherax/array-sort-by */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define("sortBy", [], factory);
 	else if(typeof exports === 'object')
 		exports["sortBy"] = factory();
 	else
@@ -114,8 +115,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Number}
 	 */
 	function sortItems(aprev, anext) {
-	  var sorted = void 0,
-	      i = void 0;
+	  var i = void 0,
+	      sorted = void 0;
 	  for (i in aprev) {
 	    // eslint-disable-line
 	    sorted = comparer(aprev[i], anext[i]);
@@ -133,9 +134,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param  {Any} next: n+1 element to compare
 	 * @return {Number}
 	 */
-	var defaultSort = function defaultSort(prev, next) {
+	function defaultSort(prev, next) {
 	  return prev < next ? -1 : +(prev > next);
-	};
+	}
 
 	/**
 	 * @public

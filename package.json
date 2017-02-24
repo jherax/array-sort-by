@@ -1,9 +1,10 @@
 {
   "name": "array-sort-by",
-  "version": "1.0.1",
-  "description": "Sorts an array and allows multiple sort criteria",
+  "version": "1.0.2",
+  "description": "Sorts an array with multiple ordering criteria",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
+  "module": "src/sort-by.js",
   "keywords": [
     "array",
     "sort",
@@ -20,26 +21,30 @@
   },
   "homepage": "https://github.com/jherax/array-sort-by#readme",
   "scripts": {
-    "build": "webpack --bail && webpack --config webpack.uglify.config.js",
-    "eslint": "eslint src || true"
+    "webpack": "webpack",
+    "eslint": "eslint src || true",
+    "build": "webpack --bail --config webpack/build.js"
   },
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.0",
-    "babel-loader": "^6.2.7",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.3.2",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.18.0",
-    "clean-webpack-plugin": "^0.1.14",
-    "eslint": "^3.10.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-loader": "^1.6.1",
-    "webpack": "^1.13.3",
-    "webpack-validator": "^2.2.9"
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "clean-webpack-plugin": "^0.1.15",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-import": "^2.2.0",
+    "webpack": "^1.14.0",
+    "webpack-validator": "^2.3.0"
   },
   "babel": {
     "presets": [
-      "es2015"
+      "es2015",
+      "stage-2"
     ],
     "plugins": [
       "babel-plugin-add-module-exports"

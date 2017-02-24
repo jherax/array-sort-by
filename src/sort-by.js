@@ -22,7 +22,7 @@ const _DESC = (/^desc:\s*/i);
  * @param  {Any} v: the value to test
  * @return {Boolean}
  */
-const isDesc = (v) => typeof v === 'string' && _DESC.test(v);
+const isDesc = v => typeof v === 'string' && _DESC.test(v);
 
 /**
  * @private
@@ -50,7 +50,8 @@ function comparer(prev, next) {
  * @return {Number}
  */
 function sortItems(aprev, anext) {
-  let sorted, i;
+  let i,
+    sorted;
   for (i in aprev) { // eslint-disable-line
     sorted = comparer(aprev[i], anext[i]);
     if (sorted) return sorted;
@@ -67,7 +68,9 @@ function sortItems(aprev, anext) {
  * @param  {Any} next: n+1 element to compare
  * @return {Number}
  */
-const defaultSort = (prev, next) => prev < next ? -1 : +(prev > next);
+function defaultSort(prev, next) {
+  return prev < next ? -1 : +(prev > next);
+}
 
 /**
  * @public
@@ -80,7 +83,8 @@ const defaultSort = (prev, next) => prev < next ? -1 : +(prev > next);
  * @return {Array}
  */
 export default function sortBy(array, parser) {
-  let i, item;
+  let i,
+    item;
   const arrLength = array.length;
   if (typeof parser === 'undefined') {
     return array.sort(defaultSort);

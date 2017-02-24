@@ -1,9 +1,9 @@
-# Array sort-by
+# Array sortBy
 
 <!-- markdownlint-disable MD033 MD034 MD014 -->
 
-The motivation to create this function was to provide a mechanism that allow sort lists of elements,
-with the possibility to specify multiple sort criteria.
+The motivation for creating this utility was to provide a mechanism to organize elements,
+with the ability to specify multiple ordering criteria.
 
 ## Getting started
 
@@ -45,9 +45,11 @@ function parser(item, index);
 `array-sort-by` can be included directly from a CDN in your page:
 
 ```html
-<!-- last version: 1.0.1 -->
-<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.0.1/dist/sort-by.min.js"></script>
+<!-- last version: 1.0.2 -->
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.0.2/dist/sort-by.min.js"></script>
 ```
+
+In the above case, the function [`sortBy`](#examples) is included as a global object in the browser.
 
 As this library is built as an [UMD](http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)
 (Universal Module Definition), it can be included from a module loader as AMD, CommonJS, or ES2015 Export.
@@ -67,15 +69,19 @@ import sortBy from 'array-sort-by';
 ### AMD
 
 ```javascript
+// using RequireJS
 requirejs.config({
   paths: {
+    // remove the extension .js
     'array-sort-by': '<PATH>/sort-by.min'
   }
 });
-define(['array-sort-by'], function(sortBy) {
+require(['array-sort-by'], function(sortBy) {
   sortBy(someArray);
 });
 ```
+
+See an example with RequireJS here: http://jsfiddle.net/FdKTn/66/
 
 ## Examples
 
@@ -103,7 +109,7 @@ sortBy(arr, n => -n);
  */
 ```
 
-### Sorting DESC date-strings in format `'yyyy/MM/dd'` as `Date`
+### Sorting DESC date-strings as `Date`
 
 ```javascript
 let arr = ["1983/03/06", "1980/12/24", "1985/08/31", "1983/03/05"];
@@ -133,21 +139,21 @@ sortBy(arr, (s) => "desc:" + s);
 
 ```javascript
 let arr = [
-  { n: 8, d: "1985/08/31" },
-  { n: 2, d: "1980/12/24" },
-  { n: 5, d: "1983/03/06" },
-  { n: 8, d: "1983/03/06" }
+  { a: 8, d: "1985/08/31" },
+  { a: 2, d: "1980/12/24" },
+  { a: 5, d: "1983/03/06" },
+  { a: 8, d: "1983/03/06" }
 ];
 
-sortBy(arr, (o) => [-o.n, new Date(o.d)]);
+sortBy(arr, (o) => [-o.a, new Date(o.d)]);
 
 /*
  * expected:
  * [
- *   { n: 8, d: "1983/03/06" },
- *   { n: 8, d: "1985/08/31" },
- *   { n: 5, d: "1983/03/06" },
- *   { n: 2, d: "1980/12/24" }
+ *   { a: 8, d: "1983/03/06" },
+ *   { a: 8, d: "1985/08/31" },
+ *   { a: 5, d: "1983/03/06" },
+ *   { a: 2, d: "1980/12/24" }
  * ]
  */
 ```
@@ -179,21 +185,21 @@ sortBy(arr, (o) => "DESC:" + o.name.toUpperCase());
 
 ```javascript
 let arr = [
-  { id: 4, name: "pedro", age: 26 },
-  { id: 6, name: "Pedro", age: 32 },
-  { id: 7, name: "Luis",  age: 26 },
-  { id: 2, name: "luis",  age: 26 }
+  { a: 4, age: 26, name: "pedro" },
+  { a: 6, age: 32, name: "Pedro" },
+  { a: 7, age: 26, name: "Luis" },
+  { a: 2, age: 26, name: "luis" }
 ];
 
-sortBy(arr, (o) => [o.name.toUpperCase(), -o.age, o.id]);
+sortBy(arr, (o) => [o.name.toUpperCase(), -o.age, o.a]);
 
 /*
  * expected:
  * [
- *   { id: 2, name: "luis",  age: 26 },
- *   { id: 7, name: "Luis",  age: 26 },
- *   { id: 6, name: "Pedro", age: 32 },
- *   { id: 4, name: "pedro", age: 26 }
+ *   { a: 2, age: 26, name: "luis" },
+ *   { a: 7, age: 26, name: "Luis" },
+ *   { a: 6, age: 32, name: "Pedro" },
+ *   { a: 4, age: 26, name: "pedro" }
  * ]
  */
 ```
@@ -204,15 +210,22 @@ If you want to fork or build your own, you must run this project.
 
 ### Requirements
 
-1. Git ([git-linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) or [git-windows](https://git-for-windows.github.io/)).
-1. [Node.js](https://nodejs.org/en/) (latest stable version v6+).
-1. Node Package Manager ([npm](https://docs.npmjs.com/) v3+), the one that comes with your **node.js** version.<br>
-   It is preferable to install Node Version Manager - **[nvm](https://github.com/creationix/nvm)**, it contains both
-   **node.js** and **npm**.
+1. Git ([git-linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+   or [git-windows](https://git-for-windows.github.io/)).
+1. [Node.js](https://nodejs.org/en/) (latest stable version v6+).<br>
+   It is preferable install **[nvm](https://github.com/creationix/nvm)**
+   (Node Version Manager).
 1. [Yarn](https://yarnpkg.com/en/docs/cli/) installed as a global package.
 
-**NOTE**: Consider to install Node Version Manager (**NVM**) to upgrade easily the Node.js version.<br>
-Go to https://github.com/creationix/nvm and check the installation process for your OS.
+**NOTE**: Consider install Node Version Manager (**nvm**) to upgrade easily the NodeJS version.
+<br>Go to https://github.com/creationix/nvm and check the installation process for your OS.
+
+If you are running Windows, you can install
+[nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows).
+Follow every step mentioned
+[here](https://github.com/coreybutler/nvm-windows#installation--upgrades)
+so that nvm will be correctly installed to manage multiple installations
+of **node.js** (with **npm**) on a Windows computer.
 
 ### Building the project
 
@@ -240,9 +253,7 @@ And finally execute the webpack task:
 $ yarn run build
 ```
 
-This command will lint the code with [ESLint](http://eslint.org/docs/user-guide/getting-started) and after that
-it will transpile with [Babel](https://babeljs.io/) the ES2015 Module in `src/` folder to an UMD ES5 Module in `dist/`
-and finally it will generate the minified and source map files.
+This command will lint the code with [ESLint](http://eslint.org/docs/user-guide/getting-started) and transpile the source files from `src/` to `dist/` as an [UMD](http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) with [Babel](https://babeljs.io/). It also generates the minified and source map files.
 
 ## Versioning
 
