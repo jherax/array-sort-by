@@ -80,7 +80,7 @@ require(['array-sort-by'], function(sortBy) {
 });
 ```
 
-See an example with RequireJS here: http://jsfiddle.net/FdKTn/66/
+See an example with RequireJS here: http://jsfiddle.net/FdKTn/69/
 
 ## Examples
 
@@ -134,7 +134,7 @@ sortBy(arr, (s) => "desc:" + s);
  */
 ```
 
-### Sorting DESC by @n, after ASC by @d (as Date)
+### Sorting DESC by @a, after ASC by @d (as Date)
 
 ```javascript
 let arr = [
@@ -180,7 +180,7 @@ sortBy(arr, (o) => "DESC:" + o.name.toUpperCase());
  */
 ```
 
-### Sorting ASC by @name (ignore case sensitive), after DESC by @age, after ASC by @id
+### Sorting ASC by @name (ignore case sensitive), after DESC by @age, after ASC by @a
 
 ```javascript
 let arr = [
