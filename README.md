@@ -45,8 +45,7 @@ function parser(item, index);
 `array-sort-by` can be included directly from a CDN in your page:
 
 ```html
-<!-- last version: 1.0.2 -->
-<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.0.2/dist/sort-by.min.js"></script>
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.0.3/dist/sort-by.min.js"></script>
 ```
 
 In the above case, the function [`sortBy`](#examples) is included as a global object in the browser.

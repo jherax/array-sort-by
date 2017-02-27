@@ -15,7 +15,6 @@ const config = {
   output: {
     path: PATHS.dist.folder,
     filename: '[name].js',
-    umdNamedDefine: true,
     libraryTarget: 'umd',
     library: 'sortBy', // global var in the browser
   },

@@ -1,9 +1,9 @@
-/*! sortBy@v1.0.2. Jherax 2017. Visit https://github.com/jherax/array-sort-by */
+/*! sortBy@v1.0.3. Jherax 2017. Visit https://github.com/jherax/array-sort-by */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("sortBy", [], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
 		exports["sortBy"] = factory();
 	else

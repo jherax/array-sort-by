@@ -1,6 +1,6 @@
 {
   "name": "array-sort-by",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Sorts an array with multiple ordering criteria",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
