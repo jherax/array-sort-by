@@ -35,6 +35,9 @@ const isDesc = v => typeof v === 'string' && _DESC.test(v);
  */
 function comparer(prev, next) {
   let asc = 1;
+  // TODO: Add support for accented characters
+  // See http://ow.ly/UvDD309zozK
+  // e.g. return a.localeCompare(b);
   if (prev === next) return 0;
   if (isDesc(prev)) asc = -1;
   return (prev > next ? 1 : -1) * asc;
