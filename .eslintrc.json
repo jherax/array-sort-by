@@ -1,8 +1,9 @@
 {
   "extends": [
-    "airbnb-base",
+    "eslint:recommended",
+    "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/errors"
+    "airbnb-base"
   ],
   "plugins": [
     "import"
@@ -24,18 +25,31 @@
     }
   },
   "rules": {
-    "import/no-extraneous-dependencies": [
-      "error", { "devDependencies": true }
-    ],
     "valid-jsdoc": [1, {
-      "requireReturnDescription": false
+      "requireParamDescription": false,
+      "requireReturnDescription": false,
+      "requireReturn": false,
+      "requireReturnType": true,
+      "prefer": { "returns": "return" }
+    }],
+    "require-jsdoc": [2, {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      }
     }],
     "one-var": [2, {
       "uninitialized": "always"
     }],
     "max-len": 0,
-    "object-curly-spacing": [2, "never"],
+    "no-param-reassign": 0,
     "no-underscore-dangle": 0,
-    "no-param-reassign": 0
+    "object-curly-spacing": [2, "never"],
+    "import/no-mutable-exports": 1,
+    "import/prefer-default-export": 1,
+    "import/no-extraneous-dependencies": [
+      "error", { "devDependencies": true }
+    ]
   }
 }
