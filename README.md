@@ -5,6 +5,14 @@
 The motivation for creating this utility was to provide a mechanism to organize elements,
 with the ability to specify multiple ordering criteria.
 
+## Content
+
+1. [Getting started](#getting-started)
+1. [Including the library](#including-the-library)
+1. [Examples](#examples)
+1. [Shimming-polyfills](#shimming-polyfills)
+1. [Running the project](#running-the-project)
+
 ## Getting started
 
 To include this library into your package manager with `npm` or `yarn`
@@ -203,6 +211,42 @@ sortBy(arr, (o) => [o.name.toUpperCase(), -o.age, o.a]);
  */
 ```
 
+## Shimming-polyfills
+
+This library is written using some of the new ES5/ES6 features. If you have
+to support Non-standard-compliant browsers like Internet Explorer, you can
+polyfill some of the missing features with the following alternatives:
+
+**Using [es6-shim](https://github.com/paulmillr/es6-shim)**
+
+```html
+<!-- put this script FIRST, before all other scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+```
+
+**Using [polyfill.io](https://polyfill.io/v2/docs/)**
+
+```html
+<!-- put this script FIRST, before all other scripts -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+```
+
+[Polyfill.io](https://polyfill.io/v2/docs/examples) reads the `User-Agent`
+header of each request and returns the polyfills that are suitable for the
+requesting browser.
+
+If you want to request specific polyfills, you can pass a query parameter
+to the url, for example:
+
+```html
+<!--[if IE]>
+<script src="https://polyfill.io/v2/polyfill.min.js?features=default-3.3&flags=always"></script>
+<![endif]-->
+```
+
+Read the list of available features:
+[Features and Browsers Supported](https://polyfill.io/v2/docs/features/).
+
 ## Running the project
 
 If you want to fork or build your own, you must run this project.
@@ -272,7 +316,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 To report an issue and keep traceability of bug-fixes, please report to:
 
-* https://github.com/jherax/array-sort-by/issues
+- https://github.com/jherax/array-sort-by/issues
 
 ## License
 

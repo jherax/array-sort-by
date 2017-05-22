@@ -1,4 +1,4 @@
-/*! sortBy@v1.0.3. Jherax 2017. Visit https://github.com/jherax/array-sort-by */
+/*! sortBy@v1.0.3a. Jherax 2017. Visit https://github.com/jherax/array-sort-by */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -100,6 +100,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function comparer(prev, next) {
 	  var asc = 1;
+	  // TODO: Add support for accented characters
+	  // See http://ow.ly/UvDD309zozK
+	  // e.g. return a.localeCompare(b);
 	  if (prev === next) return 0;
 	  if (isDesc(prev)) asc = -1;
 	  return (prev > next ? 1 : -1) * asc;
