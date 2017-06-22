@@ -5,11 +5,11 @@ const source = resolve(__dirname, '../src');
 
 module.exports = {
   project: resolve(__dirname, '../'),
+  dist: {
+    folder: dist,
+  },
   source: {
     folder: source,
     js: resolve(source, 'sort-by.js'),
-  },
-  dist: {
-    folder: dist,
   },
 };

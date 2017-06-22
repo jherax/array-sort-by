@@ -1,5 +1,5 @@
 /**
- * Sorts an array and allows multiple sort criteria.
+ * Sorts an array and allows multiple sorting criteria.
  *
  * It applies the Schwartzian transform:
  * https://en.wikipedia.org/wiki/Schwartzian_transform
@@ -11,23 +11,16 @@
  * You can fork this project on github:
  * https://github.com/jherax/array-sort-by.git
  */
+import ignoreAccent from './ignore-accent';
+import defaultSort from './default-sort';
 
-const _DESC = (/^desc:\s*/i);
-
-/**
- * @private
- *
- * Tests whether the input value is a string and has set the flag for descending order.
- *
- * @param  {Any} v: the value to test
- * @return {Boolean}
- */
-const isDesc = v => typeof v === 'string' && _DESC.test(v);
+const _DESC = /^desc:\s*/i;
 
 /**
  * @private
  *
- * Compares each element and defines the sort order.
+ * Compares each element and defines the sorting order.
+ * @see http://ow.ly/UvDD309zozK
  *
  * @param  {Any} prev: n element to compare
  * @param  {Any} next: n+1 element to compare
@@ -35,11 +28,12 @@ const isDesc = v => typeof v === 'string' && _DESC.test(v);
  */
 function comparer(prev, next) {
   let asc = 1;
-  // TODO: Add support for accented characters
-  // See http://ow.ly/UvDD309zozK
-  // e.g. return a.localeCompare(b);
+  if (typeof prev === 'string') {
+    if (_DESC.test(prev)) asc = -1;
+    prev = ignoreAccent(prev);
+    next = ignoreAccent(next);
+  }
   if (prev === next) return 0;
-  if (isDesc(prev)) asc = -1;
   return (prev > next ? 1 : -1) * asc;
 }
 
@@ -48,46 +42,30 @@ function comparer(prev, next) {
  *
  * Compares each decorated element.
  *
- * @param  {Array} aprev: n decorated element to compare
- * @param  {Array} anext: n+1 decorated element to compare
+ * @param  {Array} aprev: decorated element at n index to compare
+ * @param  {Array} anext: decorated element at n+1 index to compare
  * @return {Number}
  */
 function sortItems(aprev, anext) {
-  let i,
-    sorted;
+  let i, ordered;
   for (i in aprev) { // eslint-disable-line
-    sorted = comparer(aprev[i], anext[i]);
-    if (sorted) return sorted;
+    ordered = comparer(aprev[i], anext[i]);
+    if (ordered) return ordered;
   }
   return 0;
 }
 
 /**
- * @private
- *
- * Defines the default sort order (ASC)
- *
- * @param  {Any} prev: n element to compare
- * @param  {Any} next: n+1 element to compare
- * @return {Number}
- */
-function defaultSort(prev, next) {
-  return prev < next ? -1 : +(prev > next);
-}
-
-/**
  * @public
  *
- * Sorts an array and allows multiple sort criteria.
+ * Sorts an array and allows multiple sorting criteria.
  *
- * @export
  * @param  {Array} array: the collection to sort
- * @param  {Function} parser: transforms each item and specifies the sort order
+ * @param  {Function} parser: transforms each item and specifies the sorting order
  * @return {Array}
  */
 export default function sortBy(array, parser) {
-  let i,
-    item;
+  let i, item;
   const arrLength = array.length;
   if (typeof parser === 'undefined') {
     return array.sort(defaultSort);

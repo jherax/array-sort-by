@@ -1,8 +1,15 @@
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const validate = require('webpack-validator');
 const {version} = require('../package.json');
+const webpack = require('webpack');
 const PATHS = require('./paths');
+
+/**
+ * Should include a version with polyfills?
+ *
+ * Object.hasOwnProperty
+ * Object.defineProperty
+ * Array.sort
+ */
 
 const banner = `sortBy@v${version}. Jherax 2017. Visit https://github.com/jherax/array-sort-by`;
 const test = /\.min.js($|\?)/i;
@@ -16,35 +23,39 @@ const config = {
     path: PATHS.dist.folder,
     filename: '[name].js',
     libraryTarget: 'umd',
-    library: 'sortBy', // global var in the browser
+    library: 'sortBy', // global
   },
   module: {
-    loaders: [{
-      test: PATHS.source.folder,
-      loaders: ['babel-loader', 'eslint-loader'],
-    }],
-  },
-  // https://github.com/MoOx/eslint-loader
-  eslint: {
-    configFile: '.eslintrc.json',
-    failOnWarning: false,
-    failOnError: true,
+    rules: [
+      {
+        test: PATHS.source.folder,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: PATHS.source.folder,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        options: {
+          // https://github.com/MoOx/eslint-loader
+          configFile: '.eslintrc.json',
+          failOnWarning: false,
+          failOnError: true,
+        },
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin([PATHS.dist.folder], {
       root: PATHS.project,
       verbose: true,
     }),
-    // Search for equal or similar files and deduplicate them in the output
-    // https://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-    // Note: Don’t use it in watch mode. Only for production builds.
-    new webpack.optimize.DedupePlugin(),
-    // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+    // https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
     new webpack.optimize.UglifyJsPlugin({
       test,
-      minimize: true,
       sourceMap: true, // map error message locations to modules
-      // https://github.com/mishoo/UglifyJS2#compressor-options
+      // https://github.com/mishoo/UglifyJS2#compress-options
       compress: {
         warnings: true,
         dead_code: true,
@@ -52,13 +63,15 @@ const config = {
         drop_console: true,
       },
     }),
-    new webpack.BannerPlugin(banner, {raw: false, entryOnly: true}),
-    // https://webpack.github.io/docs/list-of-plugins.html#sourcemapdevtoolplugin
+    new webpack.BannerPlugin({banner, raw: false, entryOnly: true}),
+    // https://webpack.js.org/plugins/source-map-dev-tool-plugin/
     new webpack.SourceMapDevToolPlugin({
       test,
       filename: '[name].map',
+      // loaders generate SourceMaps and the source code is used
+      module: true,
     }),
   ],
 };
 
-module.exports = validate(config);
+module.exports = config;
