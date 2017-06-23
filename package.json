@@ -1,6 +1,6 @@
 {
   "name": "array-sort-by",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Sorts an array and allows multiple sorting criteria",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
@@ -39,7 +39,6 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-loader": "^1.8.0",
     "eslint-plugin-import": "^2.5.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.0.0"
   },
   "babel": {

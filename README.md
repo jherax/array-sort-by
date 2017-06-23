@@ -64,7 +64,7 @@ parser(item: Any) : Any
 <script src="https://unpkg.com/array-sort-by/dist/sort-by.min.js"></script>
 
 <!-- or from rawgit.com -->
-<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.1.0/dist/sort-by.min.js"></script>
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.1.2/dist/sort-by.min.js"></script>
 ```
 
 In the above case, the function [`sortBy`](#examples) is included as
@@ -101,7 +101,7 @@ require(['array-sort-by'], function(sortBy) {
 });
 ```
 
-See an example with RequireJS here: http://jsfiddle.net/FdKTn/73/
+See an example with RequireJS here: http://jsfiddle.net/FdKTn/75/
 
 [&#9751; Back to Index](#content)
 
@@ -245,8 +245,8 @@ sortBy(arr, item => "DESC:" + item.name);
 
 ```javascript
 let arr = [
-  { a: 4, age: 26, name: "pedro" },
-  { a: 6, age: 32, name: "Pedro" },
+  { a: 9, age: 26, name: "pedro" },
+  { a: 6, age: 21, name: "Pedro" },
   { a: 7, age: 26, name: "Maria" },
   { a: 2, age: 26, name: "maría" }
 ];
@@ -258,8 +258,8 @@ sortBy(arr, item => [item.name, -item.age, item.a]);
  * [
  *   { a: 2, age: 26, name: "maría" },
  *   { a: 7, age: 26, name: "Maria" },
- *   { a: 6, age: 32, name: "Pedro" },
- *   { a: 4, age: 26, name: "pedro" }
+ *   { a: 9, age: 26, name: "pedro" },
+ *   { a: 6, age: 21, name: "Pedro" }
  * ]
  */
 ```

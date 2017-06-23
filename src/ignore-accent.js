@@ -1,4 +1,24 @@
-const accent = 'ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ';
+/*
+function generateUnicode() {
+  const charcodes = [];
+  const chars = 'ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ';
+  for (let i = 0; i < chars.length; i += 1) {
+    charcodes.push(chars.charCodeAt(i));
+  }
+  return charcodes;
+}
+*/
+
+// Unicode values
+const accent =
+  String.fromCharCode(
+    194, 226, 192, 224, 193, 225, 196, 228, 195, 227, 197, 229, // ÂâÀàÁáÄäÃãÅå
+    202, 234, 200, 232, 201, 233, 203, 235, // ÊêÈèÉéËë
+    206, 238, 204, 236, 205, 237, 207, 239, // ÎîÌìÍíÏï
+    212, 244, 210, 242, 211, 243, 214, 246, 213, 245, // ÔôÒòÓóÖöÕõ
+    219, 251, 217, 249, 218, 250, 220, 252, // ÛûÙùÚúÜü
+    209, 241, 221, 253, 255); // ÑñÝýÿ
+
 const normal = 'AaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy';
 
 /**
