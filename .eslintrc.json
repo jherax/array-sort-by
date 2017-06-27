@@ -44,9 +44,7 @@
       "uninitialized": "always"
     }],
     "one-var-declaration-per-line": [2, "initializations"],
-    "max-len": 0,
     "no-param-reassign": 0,
-    "no-underscore-dangle": 0,
     "object-curly-spacing": [2, "never"],
     "import/no-mutable-exports": 1,
     "import/prefer-default-export": 1,

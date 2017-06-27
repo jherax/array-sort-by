@@ -14,7 +14,7 @@
 import ignoreAccent from './ignore-accent';
 import defaultSort from './default-sort';
 
-const _DESC = /^desc:\s*/i;
+const DESC = /^desc:\s*/i;
 
 /**
  * @private
@@ -29,7 +29,7 @@ const _DESC = /^desc:\s*/i;
 function comparer(prev, next) {
   let asc = 1;
   if (typeof prev === 'string') {
-    if (_DESC.test(prev)) asc = -1;
+    if (DESC.test(prev)) asc = -1;
     prev = ignoreAccent(prev);
     next = ignoreAccent(next);
   }

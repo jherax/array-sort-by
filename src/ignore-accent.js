@@ -9,6 +9,8 @@ function generateUnicode() {
 }
 */
 
+// TODO: Issue #3: Allow extend accented characters, by mapping the value to translate
+
 // Unicode values
 const accent =
   String.fromCharCode(

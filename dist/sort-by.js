@@ -96,6 +96,8 @@ function generateUnicode() {
 }
 */
 
+// TODO: Issue #3: Allow extend accented characters, by mapping the value to translate
+
 // Unicode values
 var accent = String.fromCharCode(194, 226, 192, 224, 193, 225, 196, 228, 195, 227, 197, 229, // ÂâÀàÁáÄäÃãÅå
 202, 234, 200, 232, 201, 233, 203, 235, // ÊêÈèÉéËë
@@ -157,7 +159,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * You can fork this project on github:
  * https://github.com/jherax/array-sort-by.git
  */
-var _DESC = /^desc:\s*/i;
+var DESC = /^desc:\s*/i;
 
 /**
  * @private
@@ -172,7 +174,7 @@ var _DESC = /^desc:\s*/i;
 function comparer(prev, next) {
   var asc = 1;
   if (typeof prev === 'string') {
-    if (_DESC.test(prev)) asc = -1;
+    if (DESC.test(prev)) asc = -1;
     prev = (0, _ignoreAccent2.default)(prev);
     next = (0, _ignoreAccent2.default)(next);
   }

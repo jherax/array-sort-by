@@ -11,7 +11,6 @@ It has support for accented characters, and also ignore case sensitive.
 1. [Including the library](#including-the-library)
 1. [Examples](#examples)
 1. [Polyfills](#polyfills)
-1. [Running the project](#running-the-project)
 
 ## Getting started
 
@@ -71,7 +70,7 @@ In the above case, the function [`sortBy`](#examples) is included as
 global object in the browser.
 
 As `sortBy` is built as [UMD] _(Universal Module Definition)_, it can
-be included from module loaders such as [CommonJS], [ES2015 Export]
+be included from module loaders such as [CommonJS], [ES2015 Imports]
 or [AMD RequireJS].
 
 ### CommonJS
@@ -80,7 +79,7 @@ or [AMD RequireJS].
 var sortBy = require('array-sort-by');
 ```
 
-### ES2015 Export
+### ES2015 Imports
 
 ```javascript
 import sortBy from 'array-sort-by';
@@ -145,52 +144,44 @@ sortBy(arr, (s) => -new Date(s));
 
 ### Sorting DESC strings
 
-Because we use the minus **(-)** symbol to specify a descending order, it will produce a `NaN` value when is used with a `String` element. That's why the flag **`"desc:"`** is prefixed to the string items in the `parser` callback.
-
-```javascript
-let arr = ["1983/03/06", "1980/12/24", "1985/08/31", "1983/03/05"];
-sortBy(arr, (s) => "desc:" + s);
-
-/**
- * expected:
- * ["1985/08/31", "1983/03/06", "1983/03/05", "1980/12/24"]
- */
-```
-
-### Sorting accented words
+Because we use the minus **(-)** symbol to specify a descending order,
+it will produce a `NaN` value if it is used with a `String` element.
+That's why the flag **`"desc:"`** (not case sensitive) is prefixed
+to the string element in the `parser` callback.
 
 ```javascript
 var arr = ['único', 'cosas', 'Árbol', 'fútbol', 'algo'];
-sortBy(arr);
-/**
- * expected:
- * ["algo", "Árbol", "cosas", "fútbol", "único"]
- */
 
 sortBy(arr, item => 'desc:' + item);
 /**
  * expected:
  * ["único", "fútbol", "cosas", "Árbol", "algo"]
  */
+
+sortBy(arr);
+/**
+ * expected:
+ * ["algo", "Árbol", "cosas", "fútbol", "único"]
+ */
 ```
 
-### Sorting accented words by @n
+### Sorting accented words by @text
 
 ```javascript
 var arr = [
-  { n: 'Woche' },
-  { n: 'wöchentlich' },
-  { n: 'wäre' }
+  { id: 10, text: 'Woche' },
+  { id: 20, text: 'wöchentlich' },
+  { id: 30, text: 'wäre' }
 ];
 
-sortBy(arr, item => item.n);
+sortBy(arr, item => item.text);
 
 /**
  * expected:
  * [
- *   { n: "wäre" },
- *   { n: "Woche" },
- *   { n: "wöchentlich" }
+ *   { id: 30, text: "wäre" },
+ *   { id: 10, text: "Woche" },
+ *   { id: 20, text: "wöchentlich" }
  * ]
  */
 ```
@@ -283,7 +274,7 @@ polyfill some of the missing features with the following alternatives:
 
 ```html
 <!-- put this script FIRST, before all other scripts -->
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.3"></script>
 ```
 
 [Polyfill.io](https://polyfill.io/v2/docs/examples) reads the `User-Agent`
@@ -301,62 +292,6 @@ to the url, for example:
 
 Read the list of available features:
 [Features and Browsers Supported](https://polyfill.io/v2/docs/features/).
-
-[&#9751; Back to Index](#content)
-
-## Running the project
-
-If you want to fork or build your own, you must run this project.
-
-### Requirements
-
-1. Git on [linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-   or [windows](https://git-for-windows.github.io/).
-1. [Node.js](https://nodejs.org/en/) (latest stable version v6+).<br>
-   It is preferable install [nvm](https://github.com/creationix/nvm)
-   (node version manager).
-1. [Yarn](https://yarnpkg.com/en/docs/cli/) installed as global package.
-
-**NOTE**: Consider install Node Version Manager (**nvm**) to upgrade easily
-the Node version.<br>Go to https://github.com/creationix/nvm and check the
-installation process for your OS.
-
-If you are running Windows, you can install [nvm-windows]. Follow every
-step mentioned [here][nvm-windows-install] so that **nvm** will be correctly
-installed to manage multiple installations of **Node** (with **npm**)
-on a Windows computer.
-
-### Building the project
-
-Clone the repository:
-
-```shell
-$ git https://github.com/jherax/array-sort-by.git
-```
-
-If you don't have installed `yarn` as a global package, run this command:
-
-```shell
-$ npm install -g yarn
-```
-
-Now `yarn` will install dependencies in [`package.json`](package.json):
-
-```shell
-$ yarn
-```
-
-And finally execute the webpack task:
-
-```shell
-$ yarn run build
-```
-
-This command will lint the code with
-[ESLint](http://eslint.org/docs/user-guide/getting-started)
-and transpile the source files from `src/` to `dist/` as an [UMD] with
-[Babel](https://babeljs.io/). It also generates the minified and source map
-files.
 
 [&#9751; Back to Index](#content)
 
@@ -391,7 +326,5 @@ or any other 3rd party libraries used in a repository. See [LICENSE](LICENSE) fi
 
 [UMD]: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
 [CommonJS]: https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/
-[ES2015 Export]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
+[ES2015 Imports]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
 [AMD RequireJS]: http://requirejs.org/docs/api.html#jsfiles
-[nvm-windows]: https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows
-[nvm-windows-install]: https://github.com/coreybutler/nvm-windows#installation--upgrades
