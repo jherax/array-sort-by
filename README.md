@@ -3,14 +3,14 @@
 <!-- markdownlint-disable MD033 MD034 MD014 -->
 
 Sorts an array and allows specify multiple sorting criteria.
-It has support for accented characters, and also ignore case sensitive.
+It has support for accented characters, and ignores
+case sensitive to sort strings correctly.
 
 ## Content
 
 1. [Getting started](#getting-started)
 1. [Including the library](#including-the-library)
 1. [Examples](#examples)
-1. [Polyfills](#polyfills)
 
 ## Getting started
 
@@ -28,8 +28,8 @@ The `sortBy` function has the following signature:
 
 ```javascript
 /**
- * @param  {Array} array: the collection of elements to sort
- * @param  {Function} parser: transforms each item and specifies the sorting order
+ * @param  {Array} array: the list of elements to sort
+ * @param  {Function} parser: (optional) transforms each item and specifies the sorting mode
  * @return {Array}
  */
 sortBy(array: Array, parser: Function) : Array
@@ -37,8 +37,8 @@ sortBy(array: Array) : Array
 ```
 
 The optional parameter `parser` is a function that transforms each element
-being iterated and sets the sorting rules: _ascending_ or _descending_, and
-the option to specify multiple fields for sorting.
+being iterated and sets the sorting rules: _ascending_ or _descending_.
+Here you can specify the way of sorting by multiple fields.
 
 The `parser` callback has the following signature:
 
@@ -52,6 +52,68 @@ parser(item: Any, index: Number) : Any
 parser(item: Any) : Any
 ```
 
+Also, a new static method `mapAccents` has been added to the `sortBy` function.
+This method allows to register a map of accents in order to sort strings correctly.
+
+Signature:
+
+```javascript
+/**
+ * @param {String} accents: the string with the accents
+ * @param {String} replacements: the replacement for each accent
+ */
+sortBy.mapAccents(accents: String, replacements: String) : void
+```
+
+> Problem solved: when you try order an array of non ASCII characters like this
+`['é', 'a', 'ú', 'c']`, you will obtain a strange result `['c', 'e', 'á', 'ú']`.
+That happens because `.sort()` does not work correctly with accented characters.
+
+By default `mapAccents` has an internal mapping with accents and their replacements:
+
+```javascript
+"ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ"
+"AaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy"
+```
+
+To register a new set of special characters you must provide their replacements:
+
+```javascript
+// register the special characters
+sortBy.mapAccents(
+  'ª@$',
+  'aas',
+);
+
+const arr = ['$impson', 'Cªl@bazä', 'M@ría', 'Cal@bªzA'];
+sortBy(arr);
+/**
+ * expected:
+ * ["Cªl@bazä", "Cal@bªzA", "M@ría", "$impson"]
+ *
+ * translated as:
+ * ["CALABAZA", "CALABAZA", "MARIA", "SIMPSON"]
+ */
+
+sortBy(arr, item => `DESC:${item}`);
+/**
+ * expected:
+ * ["$impson", "M@ría", "Cal@bªzA", "Cªl@bazä"]
+ *
+ * translated as:
+ * ["SIMPSON", "MARIA", "CALABAZA", "CALABAZA"]
+ */
+```
+
+In the example above, after calling `sortBy.mapAccents()` we
+added new accents and their replacements at the beginning of
+the internal mapping, honoring the user mapping first:
+
+```javascript
+"ª@$ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ"
+"aasAaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy"
+```
+
 [&#9751; Back to Index](#content)
 
 ## Including the library
@@ -61,9 +123,13 @@ parser(item: Any) : Any
 ```html
 <!-- from unpkg.com -->
 <script src="https://unpkg.com/array-sort-by/dist/sort-by.min.js"></script>
+<!-- from unpkg.com, including polyfills -->
+<script src="https://unpkg.com/array-sort-by/dist/sort-by-all.min.js"></script>
 
-<!-- or from rawgit.com -->
-<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.1.2/dist/sort-by.min.js"></script>
+<!-- from rawgit.com -->
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.2.0/dist/sort-by.min.js"></script>
+<!-- from rawgit.com, including polyfills -->
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.2.0/dist/sort-by-all.min.js"></script>
 ```
 
 In the above case, the function [`sortBy`](#examples) is included as
@@ -130,10 +196,10 @@ sortBy(arr, n => -n);
  */
 ```
 
-### Sorting DESC: date-strings as `Date`
+### Sorting DESC: date-strings as Date
 
 ```javascript
-let arr = ["1983/03/06", "1980/12/24", "1985/08/31", "1983/03/05"];
+let arr = ['1983/03/06', '1980/12/24', '1985/08/31', '1983/03/05'];
 sortBy(arr, (s) => -new Date(s));
 
 /**
@@ -255,44 +321,6 @@ sortBy(arr, item => [item.name, -item.age, item.id]);
  * ]
  */
 ```
-
-[&#9751; Back to Index](#content)
-
-## Polyfills
-
-This library is written using some of the new ES5/ES6 features. If you have
-to support Non-standard-compliant browsers like Internet Explorer, you can
-polyfill some of the missing features with the following alternatives:
-
-**Using [es6-shim](https://github.com/paulmillr/es6-shim)**
-
-```html
-<!-- put this script FIRST, before all other scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
-```
-
-**Using [polyfill.io](https://polyfill.io/v2/docs/)**
-
-```html
-<!-- put this script FIRST, before all other scripts -->
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.3"></script>
-```
-
-[Polyfill.io](https://polyfill.io/v2/docs/examples) reads the `User-Agent`
-header of each request and returns the polyfills that are suitable for the
-requesting browser.
-
-If you want to request specific polyfills, you can pass a query parameter
-to the url, for example:
-
-```html
-<!--[if IE]>
-<script src="https://polyfill.io/v2/polyfill.min.js?features=default-3.3&flags=always"></script>
-<![endif]-->
-```
-
-Read the list of available features:
-[Features and Browsers Supported](https://polyfill.io/v2/docs/features/).
 
 [&#9751; Back to Index](#content)
 

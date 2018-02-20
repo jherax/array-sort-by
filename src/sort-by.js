@@ -1,5 +1,5 @@
 /**
- * Sorts an array and allows multiple sorting criteria.
+ * Sorts an array by allowing multiple sorting criteria.
  *
  * It applies the Schwartzian transform:
  * https://en.wikipedia.org/wiki/Schwartzian_transform
@@ -13,71 +13,44 @@
  */
 import ignoreAccent from './ignore-accent';
 import defaultSort from './default-sort';
+import sortItems from './sort-items';
+import mapAccents from './map-accents';
 
-const DESC = /^desc:\s*/i;
-
-/**
- * @private
- *
- * Compares each element and defines the sorting order.
- * @see http://ow.ly/UvDD309zozK
- *
- * @param  {Any} prev: n element to compare
- * @param  {Any} next: n+1 element to compare
- * @return {Number}
- */
-function comparer(prev, next) {
-  let asc = 1;
-  if (typeof prev === 'string') {
-    if (DESC.test(prev)) asc = -1;
-    prev = ignoreAccent(prev);
-    next = ignoreAccent(next);
+const normalizeString = (items) => {
+  items = [].concat(items);
+  for (let i = items.length - 1; i >= 0; i -= 1) {
+    if (typeof items[i] === 'string') {
+      items[i] = ignoreAccent(items[i]);
+    }
   }
-  if (prev === next) return 0;
-  return (prev > next ? 1 : -1) * asc;
-}
-
-/**
- * @private
- *
- * Compares each decorated element.
- *
- * @param  {Array} aprev: decorated element at n index to compare
- * @param  {Array} anext: decorated element at n+1 index to compare
- * @return {Number}
- */
-function sortItems(aprev, anext) {
-  let i, ordered;
-  for (i in aprev) { // eslint-disable-line
-    ordered = comparer(aprev[i], anext[i]);
-    if (ordered) return ordered;
-  }
-  return 0;
-}
+  return items;
+};
 
 /**
  * @public
  *
- * Sorts an array and allows multiple sorting criteria.
+ * Sorts an array by allowing multiple sorting criteria.
  *
- * @param  {Array} array: the collection to sort
- * @param  {Function} parser: transforms each item and specifies the sorting order
+ * @param  {Array} array: the list of elements to sort
+ * @param  {Function} parser: transforms each item and specifies the sorting mode
  * @return {Array}
  */
 export default function sortBy(array, parser) {
   let i, item;
   const arrLength = array.length;
-  if (typeof parser === 'undefined') {
-    return array.sort(defaultSort);
+  if (typeof parser !== 'function') {
+    return array.sort(defaultSort());
   }
   // Schwartzian transform (decorate-sort-undecorate)
   for (i = arrLength; i;) {
     item = array[i -= 1];
     // decorate the array
-    array[i] = [].concat(parser.call(null, item, i), item);
-    // console.log('decorated: ', array[i]);
+    array[i] = [].concat(
+      normalizeString(parser.call(null, item, i)),
+      item,
+    );
   }
-  // sort the array
+  // console.log('decorated:', JSON.stringify(array));
   array.sort(sortItems);
   // undecorate the array
   for (i = arrLength; i;) {
@@ -86,3 +59,5 @@ export default function sortBy(array, parser) {
   }
   return array;
 }
+
+sortBy.mapAccents = mapAccents;

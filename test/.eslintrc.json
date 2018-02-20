@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "ava"
+  ],
+  "extends": "plugin:ava/recommended",
+  "rules": {
+    "ava/no-skip-test": 0,
+    "ava/no-async-fn-without-await": 0
+  }
+}

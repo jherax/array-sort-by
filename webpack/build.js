@@ -4,21 +4,14 @@ const {version} = require('../package.json');
 const webpack = require('webpack');
 const PATHS = require('./paths');
 
-/**
- * Should include a version with polyfills?
- *
- * Object.hasOwnProperty
- * Object.defineProperty
- * Array.sort
- */
-
-const banner = `sortBy@v${version}. Jherax 2017. Visit https://github.com/jherax/array-sort-by`;
+const banner = `sortBy@v${version}. Jherax 2018. Visit https://github.com/jherax/array-sort-by`;
 const jsFiles = /\.min\.js($|\?)/i;
 
 const config = {
   entry: {
-    'sort-by': PATHS.source.js,
+    // 'sort-by': PATHS.source.js,
     'sort-by.min': PATHS.source.js,
+    'sort-by-full.min': [PATHS.source.polyfills, PATHS.source.js],
   },
   output: {
     path: PATHS.dist.folder,
