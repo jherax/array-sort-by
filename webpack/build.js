@@ -1,4 +1,5 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const {version} = require('../package.json');
 const webpack = require('webpack');
 const PATHS = require('./paths');
@@ -12,7 +13,7 @@ const PATHS = require('./paths');
  */
 
 const banner = `sortBy@v${version}. Jherax 2017. Visit https://github.com/jherax/array-sort-by`;
-const test = /\.min.js($|\?)/i;
+const jsFiles = /\.min\.js($|\?)/i;
 
 const config = {
   entry: {
@@ -52,21 +53,23 @@ const config = {
       verbose: true,
     }),
     // https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
-    new webpack.optimize.UglifyJsPlugin({
-      test,
+    new UglifyJsPlugin({
+      test: jsFiles,
       sourceMap: true, // map error message locations to modules
       // https://github.com/mishoo/UglifyJS2#compress-options
-      compress: {
-        warnings: true,
-        dead_code: true,
-        drop_debugger: true,
-        drop_console: true,
+      uglifyOptions: {
+        compress: {
+          warnings: true,
+          dead_code: true, // remove unreachable code
+          drop_debugger: true,
+          drop_console: true,
+        },
       },
     }),
     new webpack.BannerPlugin({banner, raw: false, entryOnly: true}),
     // https://webpack.js.org/plugins/source-map-dev-tool-plugin/
     new webpack.SourceMapDevToolPlugin({
-      test,
+      test: jsFiles,
       filename: '[name].map',
       // loaders generate SourceMaps and the source code is used
       module: true,

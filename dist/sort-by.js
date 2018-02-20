@@ -8,7 +8,7 @@
 		exports["sortBy"] = factory();
 	else
 		root["sortBy"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -104,7 +104,8 @@ var accent = String.fromCharCode(194, 226, 192, 224, 193, 225, 196, 228, 195, 22
 206, 238, 204, 236, 205, 237, 207, 239, // ÎîÌìÍíÏï
 212, 244, 210, 242, 211, 243, 214, 246, 213, 245, // ÔôÒòÓóÖöÕõ
 219, 251, 217, 249, 218, 250, 220, 252, // ÛûÙùÚúÜü
-209, 241, 221, 253, 255); // ÑñÝýÿ
+209, 241, 221, 253, 255 // ÑñÝýÿ
+);
 
 var normal = 'AaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy';
 

@@ -18,7 +18,7 @@ To include this library into your package manager with `npm` or `yarn`
 
 ```shell
 # with npm
-$ npm install array-sort-by --save
+$ npm install array-sort-by
 
 # with yarn
 $ yarn add array-sort-by
