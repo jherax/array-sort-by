@@ -118,7 +118,7 @@ sortBy(arr);
  */
 ```
 
-### Sorting DESC
+### Sorting DESC: numbers
 
 ```javascript
 let arr = [5, 1, 8, 0, 3, 7, 10, 4, 3, 8];
@@ -130,7 +130,7 @@ sortBy(arr, n => -n);
  */
 ```
 
-### Sorting DESC date-strings as `Date`
+### Sorting DESC: date-strings as `Date`
 
 ```javascript
 let arr = ["1983/03/06", "1980/12/24", "1985/08/31", "1983/03/05"];
@@ -142,12 +142,12 @@ sortBy(arr, (s) => -new Date(s));
  */
 ```
 
-### Sorting DESC strings
+### Sorting DESC: strings
 
 Because we use the minus **(-)** symbol to specify a descending order,
-it will produce a `NaN` value if it is used with a `String` element.
-That's why the flag **`"desc:"`** (not case sensitive) is prefixed
-to the string element in the `parser` callback.
+it would produce a `NaN` value if used with a `String` value.
+So the flag **`"desc:"`** (not case sensitive) is prefixed
+to the string value in the `parser` callback.
 
 ```javascript
 var arr = ['único', 'cosas', 'Árbol', 'fútbol', 'algo'];
@@ -158,6 +158,7 @@ sortBy(arr, item => 'desc:' + item);
  * ["único", "fútbol", "cosas", "Árbol", "algo"]
  */
 
+// sorting ASC: accented words
 sortBy(arr);
 /**
  * expected:
@@ -165,7 +166,7 @@ sortBy(arr);
  */
 ```
 
-### Sorting accented words by @text
+### Sorting ASC: accented words by @text
 
 ```javascript
 var arr = [
@@ -186,25 +187,25 @@ sortBy(arr, item => item.text);
  */
 ```
 
-### Sorting DESC by @a, after ASC by @d (as Date)
+### Sorting DESC by @id, after ASC by @dob (as Date)
 
 ```javascript
 let arr = [
-  { a: 8, d: "1985/08/31" },
-  { a: 2, d: "1980/12/24" },
-  { a: 5, d: "1983/03/06" },
-  { a: 8, d: "1983/03/06" }
+  { id: 8, dob: '1985/08/31' },
+  { id: 2, dob: '1980/12/24' },
+  { id: 5, dob: '1983/03/06' },
+  { id: 8, dob: '1983/03/06' }
 ];
 
-sortBy(arr, (o) => [-o.a, new Date(o.d)]);
+sortBy(arr, (o) => [-o.id, new Date(o.dob)]);
 
 /**
  * expected:
  * [
- *   { a: 8, d: "1983/03/06" },
- *   { a: 8, d: "1985/08/31" },
- *   { a: 5, d: "1983/03/06" },
- *   { a: 2, d: "1980/12/24" }
+ *   { id: 8, dob: "1983/03/06" },
+ *   { id: 8, dob: "1985/08/31" },
+ *   { id: 5, dob: "1983/03/06" },
+ *   { id: 2, dob: "1980/12/24" }
  * ]
  */
 ```
@@ -213,13 +214,13 @@ sortBy(arr, (o) => [-o.a, new Date(o.d)]);
 
 ```javascript
 let arr = [
-  { id: 4, name: "Pedro" },
-  { id: 6, name: "Lucía" },
-  { id: 7, name: "paco" },
-  { id: 3, name: "luis" }
+  { id: 4, name: 'Pedro' },
+  { id: 6, name: 'Lucía' },
+  { id: 7, name: 'paco' },
+  { id: 3, name: 'luis' }
 ];
 
-sortBy(arr, item => "DESC:" + item.name);
+sortBy(arr, item => `DESC:${item.name}`);
 
 /**
  * expected:
@@ -232,25 +233,25 @@ sortBy(arr, item => "DESC:" + item.name);
  */
 ```
 
-### Sorting ASC by @name, after DESC by @age, after ASC by @a
+### Sorting ASC by @name, after DESC by @age, after ASC by @id
 
 ```javascript
 let arr = [
-  { a: 9, age: 26, name: "pedro" },
-  { a: 6, age: 21, name: "Pedro" },
-  { a: 7, age: 26, name: "Maria" },
-  { a: 2, age: 26, name: "maría" }
+  { id: 9, age: 26, name: 'pedro' },
+  { id: 6, age: 21, name: 'Pedro' },
+  { id: 7, age: 26, name: 'Maria' },
+  { id: 2, age: 26, name: 'maría' }
 ];
 
-sortBy(arr, item => [item.name, -item.age, item.a]);
+sortBy(arr, item => [item.name, -item.age, item.id]);
 
 /**
  * expected:
  * [
- *   { a: 2, age: 26, name: "maría" },
- *   { a: 7, age: 26, name: "Maria" },
- *   { a: 9, age: 26, name: "pedro" },
- *   { a: 6, age: 21, name: "Pedro" }
+ *   { id: 2, age: 26, name: "maría" },
+ *   { id: 7, age: 26, name: "Maria" },
+ *   { id: 9, age: 26, name: "pedro" },
+ *   { id: 6, age: 21, name: "Pedro" }
  * ]
  */
 ```
