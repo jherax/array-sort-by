@@ -22,12 +22,14 @@
   },
   "homepage": "https://github.com/jherax/array-sort-by#readme",
   "scripts": {
+    "test": "ava --verbose --fail-fast test/**/*.js",
     "eslint": "eslint src || true",
     "build": "webpack --bail --config webpack/build.js"
   },
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "ava": "^0.25.0",
     "babel-core": "^6.25.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.1",
