@@ -124,12 +124,12 @@ the internal mapping, honoring the user mapping first:
 <!-- from unpkg.com -->
 <script src="https://unpkg.com/array-sort-by/dist/sort-by.min.js"></script>
 <!-- from unpkg.com, including polyfills -->
-<script src="https://unpkg.com/array-sort-by/dist/sort-by-all.min.js"></script>
+<script src="https://unpkg.com/array-sort-by/dist/sort-by-full.min.js"></script>
 
 <!-- from rawgit.com -->
 <script src="https://cdn.rawgit.com/jherax/array-sort-by/1.2.0/dist/sort-by.min.js"></script>
 <!-- from rawgit.com, including polyfills -->
-<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.2.0/dist/sort-by-all.min.js"></script>
+<script src="https://cdn.rawgit.com/jherax/array-sort-by/1.2.0/dist/sort-by-full.min.js"></script>
 ```
 
 In the above case, the function [`sortBy`](#examples) is included as
