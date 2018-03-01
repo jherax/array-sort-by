@@ -1,10 +1,12 @@
 {
   "name": "array-sort-by",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Sorts an array and allows specify multiple sorting criteria",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
   "module": "src/sort-by.js",
+  "browser": "dist/sort-by.min.js",
+  "unpkg": "dist/sort-by.min.js",
   "keywords": [
     "array",
     "sort",

@@ -9,7 +9,7 @@ const jsFiles = /\.min\.js($|\?)/i;
 
 const config = {
   entry: {
-    // 'sort-by': PATHS.source.js,
+    'sort-by': PATHS.source.js,
     'sort-by.min': PATHS.source.js,
     'sort-by-full.min': [PATHS.source.polyfills, PATHS.source.js],
   },

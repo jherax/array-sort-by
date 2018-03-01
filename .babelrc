@@ -1,6 +1,18 @@
 {
   "presets": [
-    "env"
+    ["env", {
+      "targets": {
+        "browsers": [
+          "last 3 Chrome versions",
+          "last 3 Firefox versions",
+          "last 3 Opera versions",
+          "Explorer >= 10",
+          "Safari >= 8",
+          "iOS >= 8",
+          "Android >= 4.4"
+        ]
+      }
+    }]
   ],
   "plugins": [
     "babel-plugin-add-module-exports"
