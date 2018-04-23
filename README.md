@@ -2,9 +2,11 @@
 
 <!-- markdownlint-disable MD033 MD034 MD014 -->
 
-Sorts an array and allows specify multiple sorting criteria.
-It has support for accented characters, and ignores
-case sensitive to sort strings correctly.
+Powerful mechanism to sort arrays or array of objects by one or more properties.
+You can also specify a custom comparer function.
+
+By default it has support for some accented characters
+(see [`mapAccents`](#mapaccents)).
 
 ## Content
 
@@ -29,16 +31,19 @@ The `sortBy` function has the following signature:
 ```javascript
 /**
  * @param  {Array} array: the list of elements to sort
- * @param  {Function} parser: (optional) transforms each item and specifies the sorting mode
+ * @param  {Function} parser: transforms each item and specifies the sorting mode
  * @return {Array}
  */
-sortBy(array: Array, parser: Function) : Array
 sortBy(array: Array) : Array
+sortBy(array: Array, parser: Function) : Array
 ```
 
-The optional parameter `parser` is a function that transforms each element
+If the parameter `parser` is not provided, then the array is sorted using
+the default implementation of `Array.prototype.sort()`.
+
+Otherwise, the parameter `parser` is a function that transforms each element
 being iterated and sets the sorting rules: _ascending_ or _descending_.
-Here you can specify the way of sorting by multiple fields.
+Here you can specify the way of sorting by multiple properties.
 
 The `parser` callback has the following signature:
 
@@ -52,34 +57,44 @@ parser(item: Any, index: Number) : Any
 parser(item: Any) : Any
 ```
 
-Also, a new static method `mapAccents` has been added to the `sortBy` function.
-This method allows to register a map of accents in order to sort strings correctly.
+See examples in the section [Examples](#examples)
+
+### mapAccents
+
+A new static method `mapAccents` has been added to the `sortBy` function.
+This method allows to register a map of accented characters in order to
+sort the string accordingly.
 
 Signature:
 
 ```javascript
 /**
- * @param {String} accents: the string with the accents
- * @param {String} replacements: the replacement for each accent
+ * @param {String} accents: a string with accented characters
+ * @param {String} replacements: a string with the replacement for each accent
  */
 sortBy.mapAccents(accents: String, replacements: String) : void
 ```
 
-> Problem solved: when you try order an array of non ASCII characters like this
-`['é', 'a', 'ú', 'c']`, you will obtain a strange result `['c', 'e', 'á', 'ú']`.
-That happens because `.sort()` does not work correctly with accented characters.
+> **Problem solved**: when you try to order strings with non ASCII characters
+like this: `['é', 'a', 'ú', 'c']`, you will obtain strange results after sorting
+the array: `['c', 'e', 'á', 'ú']`. That happens because by default the method
+`Array.prototype.sort()` does not work correctly with accented characters.
 
-By default `mapAccents` has an internal mapping with accents and their replacements:
+But the static method `mapAccents` comes to the rescue, because it has an
+internal mapping with some accented characters and their replacements:
 
 ```javascript
-"ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ"
+// accents
+"ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ",
 "AaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy"
+// replacements
 ```
 
-To register a new set of special characters you must provide their replacements:
+You also may extend the accented characters and register a new set of special
+characters with their respective replacements:
 
 ```javascript
-// register the special characters
+// register special characters
 sortBy.mapAccents(
   'ª@$',
   'aas',
@@ -105,13 +120,15 @@ sortBy(arr, item => `DESC:${item}`);
  */
 ```
 
-In the example above, after calling `sortBy.mapAccents()` we
-added new accents and their replacements at the beginning of
-the internal mapping, honoring the user mapping first:
+In the example above, after calling `sortBy.mapAccents()` we extended
+the internal mapping, by adding the new accents and their replacements
+at the beginning of the mapping, honoring the user mapping first:
 
 ```javascript
+// accents: added "ª@$"
 "ª@$ÂâÀàÁáÄäÃãÅåÊêÈèÉéËëÎîÌìÍíÏïÔôÒòÓóÖöÕõÛûÙùÚúÜüÑñÝýÿ"
 "aasAaAaAaAaAaAaEeEeEeEeIiIiIiIiOoOoOoOoOoUuUuUuUuNnYyy"
+// replacements
 ```
 
 [&#9751; Back to Index](#content)
