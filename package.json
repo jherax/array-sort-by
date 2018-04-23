@@ -1,6 +1,6 @@
 {
   "name": "array-sort-by",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Powerful mechanism to sort arrays or array of objects by one or more properties. A custom comparer function may be used also.",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
@@ -42,23 +42,24 @@
   },
   "license": "ISC",
   "dependencies": {
-    "core-js": "^2.5.3"
+    "core-js": "^2.5.5"
   },
   "devDependencies": {
     "ava": "^0.25.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.2",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.6.1",
-    "clean-webpack-plugin": "^0.1.18",
-    "eslint": "^4.18.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-loader": "^1.9.0",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-ava": "^4.5.1",
-    "eslint-plugin-import": "^2.8.0",
-    "uglifyjs-webpack-plugin": "^1.2.0",
-    "webpack": "^3.11.0"
+    "eslint-plugin-import": "^2.11.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
   },
   "optionalDependencies": {
     "ajv": "^6.1.1"

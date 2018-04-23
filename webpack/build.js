@@ -8,6 +8,7 @@ const banner = `sortBy@v${version}. Jherax 2018. Visit https://github.com/jherax
 const jsFiles = /\.min\.js($|\?)/i;
 
 const config = {
+  mode: 'production',
   entry: {
     'sort-by': PATHS.source.js,
     'sort-by.min': PATHS.source.js,
@@ -17,7 +18,9 @@ const config = {
     path: PATHS.dist.folder,
     filename: '[name].js',
     libraryTarget: 'umd',
-    library: 'sortBy', // global
+    library: 'sortBy',
+    globalObject: 'this',
+    // globalObject: 'typeof self !== "undefined" ? self : this',
   },
   module: {
     rules: [
@@ -45,20 +48,6 @@ const config = {
       root: PATHS.project,
       verbose: true,
     }),
-    // https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
-    new UglifyJsPlugin({
-      test: jsFiles,
-      sourceMap: true, // map error message locations to modules
-      // https://github.com/mishoo/UglifyJS2#compress-options
-      uglifyOptions: {
-        compress: {
-          warnings: true,
-          dead_code: true, // remove unreachable code
-          drop_debugger: true,
-          drop_console: true,
-        },
-      },
-    }),
     new webpack.BannerPlugin({banner, raw: false, entryOnly: true}),
     // https://webpack.js.org/plugins/source-map-dev-tool-plugin/
     new webpack.SourceMapDevToolPlugin({
@@ -68,6 +57,25 @@ const config = {
       module: true,
     }),
   ],
+  optimization: {
+    minimizer: [
+      // https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
+      new UglifyJsPlugin({
+        test: jsFiles,
+        sourceMap: true, // map error message locations to modules
+        // https://github.com/mishoo/UglifyJS2#compress-options
+        uglifyOptions: {
+          // ecma: 6,
+          compress: {
+            warnings: true,
+            dead_code: true, // remove unreachable code
+            drop_debugger: true,
+            drop_console: true,
+          },
+        },
+      }),
+    ],
+  },
 };
 
 module.exports = config;

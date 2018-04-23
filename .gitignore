@@ -15,6 +15,6 @@ $RECYCLE.BIN/
 # Project ignored files
 # =========================
 
-npm-debug.log
-yarn-error.log
-/node_modules
+*.log
+node_modules/
+jspm_packages/
