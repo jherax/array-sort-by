@@ -1,7 +1,7 @@
 {
   "name": "array-sort-by",
   "version": "1.2.1",
-  "description": "Sorts an array and allows specify multiple sorting criteria",
+  "description": "Powerful mechanism to sort arrays or array of objects by one or more properties. A custom comparer function may be used also.",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/sort-by.js",
   "module": "src/sort-by.js",
@@ -10,8 +10,19 @@
   "keywords": [
     "array",
     "sort",
+    "sorting",
     "order",
+    "ordered",
     "arrange",
+    "asc",
+    "ascending",
+    "desc",
+    "descending",
+    "multiple",
+    "object",
+    "prop",
+    "property",
+    "properties",
     "javascript"
   ],
   "repository": {
