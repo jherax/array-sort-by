@@ -47,7 +47,7 @@ export default function sortBy(array, parser) {
     // decorate the array
     array[i] = [].concat(
       normalizeString(parser.call(null, item, i)),
-      item,
+      item
     );
   }
   // console.log('decorated:', JSON.stringify(array));
